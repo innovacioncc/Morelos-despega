@@ -22,13 +22,35 @@ for filename, text in data.items():
     
     # Try to extract a title
     lines = [L.strip() for L in text.split('\n') if L.strip() and "Morelos Despega" not in L and "Educación STEM" not in L and "Fundación Airbus" not in L]
-    title = lines[0][:80] if lines else "Proyecto Innovador"
-    if "Contexto" in title or "Favorecer" in title or "Formato" in title:
-        title = lines[1][:80] if len(lines) > 1 else "Proyecto Innovador"
+    
+    title = "Proyecto Innovador"
+    for L in lines:
+        L_lower = L.lower()
+        if "avenida" in L_lower or "c.p." in L_lower or "colonia" in L_lower or "tel:" in L_lower or "@" in L_lower or L.replace(' ', '').replace('-', '').isdigit():
+            continue
+        if "777" in L or "362" in L: # Hardcode for COBAEM phone
+            continue
+        if len(L) > 10 and not ("Contexto" in L or "Favorecer" in L or "Formato" in L):
+            title = L[:90]
+            if title.startswith("TEMA:"):
+                title = title[5:].strip()
+            break
 
-    # Try to extract a desc
-    desc_lines = [L for L in lines if len(L) > 50 and "Objetivo" not in L]
-    desc = desc_lines[0][:180] + "..." if desc_lines else "Desarrollo tecnológico para la comunidad con impacto local."
+    # Sentence extraction for better summary
+    import re
+    sentences = re.split(r'(?<=[.!?])\s+', text.replace('\n', ' '))
+    best_sentence = ""
+    for s in sentences:
+        s_lower = s.lower()
+        if ("objetivo" in s_lower or "proyecto" in s_lower or "propuesta" in s_lower or "busca" in s_lower or "consiste" in s_lower) and len(s) > 40:
+            best_sentence = s.strip()
+            break
+            
+    if not best_sentence:
+        desc_lines = [L for L in lines if len(L) > 50 and "Objetivo" not in L]
+        best_sentence = desc_lines[0] if desc_lines else "Proyecto STEM enfocado en brindar soluciones prácticas a problemas de la comunidad, utilizando tecnología y ciencia de forma creativa."
+        
+    desc = best_sentence[:220] + "..." if len(best_sentence) > 220 else best_sentence
     
     assigned_cat = "Otros Iniciativas STEM"
     max_score = 0
@@ -42,7 +64,8 @@ for filename, text in data.items():
     categorized[assigned_cat].append({
         "title": title.title(),
         "desc": desc,
-        "tag": assigned_cat.split(" ")[0]
+        "tag": assigned_cat.split(" ")[0],
+        "link": f"extracted_all/{filename}"
     })
 
 html_output = '<!-- SECCIONES DE PROYECTOS CATEGORIZADAS -->\n'
@@ -75,14 +98,14 @@ for cat, projs in categorized.items():
     for p in projs:
         html_output += f'''
                 <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-gray-200 overflow-hidden relative shrink-0">
-                        <img src="{img}" alt="{p['tag']}" class="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-500">
+                    <div class="h-40 bg-{color}/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-{color}/20 transition-colors duration-500">
+                        <i class="fa-solid {icon} text-6xl text-{color} opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
                         <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">{p['tag']}</div>
                     </div>
                     <div class="p-5 flex flex-col flex-grow">
                         <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">{p['title']}</h4>
                         <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">{p['desc']}</p>
-                        <a href="#" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto">Ver detalles <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="{p['link']}" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
                     </div>
                 </div>
         '''
