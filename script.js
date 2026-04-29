@@ -149,11 +149,14 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: "EMSaD 09 Michapa", coords: [18.7565, -99.4182], type: "emsad" }
         ];
 
+        const bounds = L.latLngBounds();
         locations.forEach(loc => {
             const elIcon = loc.type === 'emsad' ? greenIcon : blueIcon;
             L.marker(loc.coords, {icon: elIcon}).addTo(map)
                 .bindPopup(`<b>${loc.name}</b><br>Participante del Programa Morelos Despega.`);
+            bounds.extend(loc.coords);
         });
+        map.fitBounds(bounds, {padding: [30, 30]});
     }
 
 });

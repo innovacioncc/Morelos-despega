@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Morelos Despega - Empoderando a la juventud de Morelos para resolver retos globales con ciencia local. Iniciativa apoyada por Airbus Foundation.">
+    <meta name="keywords" content="Morelos Despega, STEM México, UNAM, Airbus Foundation, Ciencia, Tecnología">
+    <meta name="author" content="Morelos Despega">
+    <title>Morelos Despega | Ciencia y Tecnología STEM</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Tailwind CSS (CDN with Custom Config) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'airbus-blue': '#00205B',
+                        'unam-blue': '#002B5E',
+                        'emerald-accent': '#10B981',
+                        'light-bg': '#F8FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-gray-800 bg-light-bg leading-relaxed antialiased">
+    
+    <!-- Floating Button CTA -->
+    <a href="https://docs.google.com/forms/d/1oPokMDJhc6zSsNUFAuNUtFnhkNxfaHbh2QPZb1osII4/edit" target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-accent text-white font-bold py-3 px-6 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.5)] animate-pulse hover:animate-none hover:bg-emerald-600 hover:scale-105 transition-all flex items-center gap-2">
+        <i class="fa-solid fa-rocket"></i> Inscríbete como Mentor
+    </a>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-40 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-airbus-blue text-white rounded flex items-center justify-center font-bold text-xl">
+                        MD
+                    </div>
+                    <span class="font-bold text-2xl text-airbus-blue tracking-tight">Morelos Despega</span>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center font-semibold text-sm">
+                    <a href="#hero" class="text-gray-600 hover:text-airbus-blue transition-colors">Inicio</a>
+                    <a href="#proyectos" class="text-gray-600 hover:text-airbus-blue transition-colors">Proyectos</a>
+                    <a href="#wiki" class="text-gray-600 hover:text-airbus-blue transition-colors">Wiki AFDS</a>
+                    <a href="#tutores" class="text-gray-600 hover:text-airbus-blue transition-colors">Tutores</a>
+                    <a href="#recursos" class="text-gray-600 hover:text-airbus-blue transition-colors">Recursos</a>
+                    <a href="#noticias" class="text-gray-600 hover:text-airbus-blue transition-colors">Línea de Tiempo</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-airbus-blue focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#hero" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 hover:text-airbus-blue rounded-md">Inicio</a>
+                <a href="#proyectos" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 hover:text-airbus-blue rounded-md">Proyectos</a>
+                <a href="#wiki" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 hover:text-airbus-blue rounded-md">Wiki AFDS</a>
+                <a href="#tutores" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 hover:text-airbus-blue rounded-md">Tutores</a>
+                <a href="#recursos" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 hover:text-airbus-blue rounded-md">Recursos</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Hero & Intro -->
+    <section id="hero" class="relative pt-20 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <!-- Background Image Placeholder (Unsplash Satellite/Hangar) -->
+            <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Aerospace Satellite" class="w-full h-full object-cover">
+            <!-- Gradient Overlay for readability -->
+            <div class="absolute inset-0 bg-gradient-to-r from-airbus-blue/90 to-unam-blue/70 mix-blend-multiply"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <div class="space-y-6 slide-up-anim">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                        Empoderando a la juventud de Morelos
+                    </h1>
+                    <p class="text-xl md:text-2xl font-light text-gray-200">
+                        para resolver retos globales con ciencia local.
+                    </p>
+                    
+                    <!-- ODS Icons Row -->
+                    <div class="pt-6">
+                        <p class="text-sm uppercase tracking-wide text-gray-300 font-semibold mb-4">Alineado a los ODS de la ONU</p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 tooltip-container" data-tooltip="ODS 6: Agua Limpia y Saneamiento">
+                                <i class="fa-solid fa-droplet text-[#00AED9]"></i>
+                                <span class="text-sm font-semibold">Agua Limpia</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 tooltip-container" data-tooltip="ODS 7: Energía Asequible y No Contaminante">
+                                <i class="fa-solid fa-sun text-[#FCC30B]"></i>
+                                <span class="text-sm font-semibold">Energía</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 tooltip-container" data-tooltip="ODS 13: Acción por el Clima">
+                                <i class="fa-solid fa-earth-americas text-[#3F7E44]"></i>
+                                <span class="text-sm font-semibold">Clima</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Iframe -->
+                <div class="bg-gray-900 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10 aspect-video relative group flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay group-hover:scale-105 transition-transform duration-500" alt="Video thumbnail">
+                    <a href="https://youtu.be/xvxuD_XeCmE" target="_blank" class="relative z-10 flex flex-col items-center group/btn">
+                        <div class="w-28 h-28 bg-red-600 rounded-full flex items-center justify-center text-white shadow-2xl group-hover/btn:scale-110 group-hover/btn:bg-red-700 transition-all duration-300 mb-4">
+                            <i class="fa-brands fa-youtube text-6xl leading-none" style="margin-top: 2px;"></i>
+                        </div>
+                        <span class="text-white font-bold text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-wide group-hover/btn:text-emerald-accent transition-colors">Descripción del proyecto</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Metrics Cards -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-emerald-accent mb-2"><i class="fa-solid fa-users text-4xl"></i></div>
+                    <div class="text-4xl font-bold mb-1 counter" data-target="1200">0</div>
+                    <div class="text-gray-300 font-medium">Estudiantes Impactados</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-emerald-accent mb-2"><i class="fa-solid fa-user-astronaut text-4xl"></i></div>
+                    <div class="text-4xl font-bold mb-1 counter" data-target="400">0</div>
+                    <div class="text-gray-300 font-medium">Participación Intensiva</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl text-center transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-emerald-accent mb-2"><i class="fa-solid fa-chalkboard-user text-4xl"></i></div>
+                    <div class="text-4xl font-bold mb-1 counter" data-target="40">0</div>
+                    <div class="text-gray-300 font-medium">Docentes Co-Mentores</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Logos Banner -->
+    <div class="bg-white py-8 border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-sm font-semibold text-gray-400 uppercase tracking-wider mb-6">Iniciativa impulsada por</p>
+            <div class="flex justify-center items-center gap-12 md:gap-24 opacity-80 hover:opacity-100 transition-opacity">
+                <img src="https://www.airbus.com/sites/g/files/jlcbta136/files/2021-09/Airbus-Foundation-Logo-2021.png" alt="Airbus Foundation" class="h-12 md:h-16 object-contain grayscale hover:grayscale-0 transition-all duration-300">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Escudo-UNAM-escalable.svg" alt="UNAM" class="h-16 md:h-20 object-contain grayscale hover:grayscale-0 transition-all duration-300">
+                <div class="flex items-center gap-3 grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="w-12 h-12 bg-green-700 text-white font-bold flex items-center justify-center rounded-full text-xl shadow-md">C</div>
+                    <span class="font-bold text-gray-700 text-xl md:text-2xl tracking-tight">COBAEM</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Sección de Tutores -->
+    <section id="tutores" class="py-20 bg-light-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            
+            <div class="inline-block bg-airbus-blue text-white px-6 py-2 rounded-full font-semibold text-sm mb-6 uppercase tracking-wider">
+                Comunidad Científica
+            </div>
+            
+            <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">
+                Buscamos científicos que crean <br class="hidden md:block"/> que podemos cambiar el mundo paso a paso.
+            </h2>
+            
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-12">
+                Súmate a la red de mentores del Campus Morelos. Investigadores, académicos y profesionales guiando a la próxima generación de solucionadores. <br><br><span class="text-emerald-accent font-semibold">A continuación, te invitamos a explorar los proyectos propuestos por nuestros estudiantes en el Showcase.</span>
+            </p>
+
+            <!-- Logos -->
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 mb-16">
+                <!-- ICF Logo Placeholder -->
+                <a href="https://www.fis.unam.mx" target="_blank" class="group cursor-pointer block">
+                    <div class="w-32 h-32 rounded-full bg-white flex items-center justify-center shadow-md p-4 filter grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-transparent group-hover:border-airbus-blue">
+                        <div class="text-center">
+                            <span class="font-bold text-gray-800 text-xl block">ICF</span>
+                            <span class="text-xs text-gray-500 font-semibold">UNAM</span>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-sm font-semibold text-gray-500 group-hover:text-airbus-blue transition-colors">Ciencias Físicas</p>
+                </a>
+
+                <!-- IBt Logo Placeholder -->
+                <a href="https://www.ibt.unam.mx/" target="_blank" class="group cursor-pointer block">
+                    <div class="w-32 h-32 rounded-full bg-white flex items-center justify-center shadow-md p-4 filter grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-transparent group-hover:border-emerald-accent">
+                        <div class="text-center">
+                            <span class="font-bold text-gray-800 text-xl block">IBt</span>
+                            <span class="text-xs text-gray-500 font-semibold">UNAM</span>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-sm font-semibold text-gray-500 group-hover:text-emerald-accent transition-colors">Biotecnología</p>
+                </a>
+
+                <!-- CCG Logo Placeholder -->
+                <a href="https://www.ccg.unam.mx/" target="_blank" class="group cursor-pointer block">
+                    <div class="w-32 h-32 rounded-full bg-white flex items-center justify-center shadow-md p-4 filter grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-transparent group-hover:border-purple-500">
+                        <div class="text-center">
+                            <span class="font-bold text-gray-800 text-xl block">CCG</span>
+                            <span class="text-xs text-gray-500 font-semibold">UNAM</span>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-sm font-semibold text-gray-500 group-hover:text-purple-500 transition-colors">Ciencias Genómicas</p>
+                </a>
+
+                <!-- IER Logo Placeholder -->
+                <a href="https://www.ier.unam.mx/" target="_blank" class="group cursor-pointer block">
+                    <div class="w-32 h-32 rounded-full bg-white flex items-center justify-center shadow-md p-4 filter grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-transparent group-hover:border-yellow-500">
+                        <div class="text-center">
+                            <span class="font-bold text-gray-800 text-xl block">IER</span>
+                            <span class="text-xs text-gray-500 font-semibold">UNAM</span>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-sm font-semibold text-gray-500 group-hover:text-yellow-500 transition-colors">Energías Renovables</p>
+                </a>
+
+                <!-- CRIM Logo Placeholder -->
+                <a href="https://www.crim.unam.mx/" target="_blank" class="group cursor-pointer block">
+                    <div class="w-32 h-32 rounded-full bg-white flex items-center justify-center shadow-md p-4 filter grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-transparent group-hover:border-blue-400">
+                        <div class="text-center">
+                            <span class="font-bold text-gray-800 text-xl block">CRIM</span>
+                            <span class="text-xs text-gray-500 font-semibold">UNAM</span>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-sm font-semibold text-gray-500 group-hover:text-blue-400 transition-colors">Multidisciplinario</p>
+                </a>
+
+                <!-- IMATE Logo Placeholder -->
+                <a href="https://www.matcuer.unam.mx/" target="_blank" class="group cursor-pointer block">
+                    <div class="w-32 h-32 rounded-full bg-white flex items-center justify-center shadow-md p-4 filter grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-transparent group-hover:border-indigo-500">
+                        <div class="text-center">
+                            <span class="font-bold text-gray-800 text-xl block">IMATE</span>
+                            <span class="text-xs text-gray-500 font-semibold">UNAM</span>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-sm font-semibold text-gray-500 group-hover:text-indigo-500 transition-colors">Matemáticas</p>
+                </a>
+
+                <!-- UAEM Logo Placeholder -->
+                <a href="https://www.uaem.mx/" target="_blank" class="group cursor-pointer block">
+                    <div class="w-32 h-32 rounded-full bg-white flex items-center justify-center shadow-md p-4 filter grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-transparent group-hover:border-green-600">
+                        <div class="text-center">
+                            <span class="font-bold text-gray-800 text-xl block">UAEM</span>
+                            <span class="text-xs text-gray-500 font-semibold">Morelos</span>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-sm font-semibold text-gray-500 group-hover:text-green-600 transition-colors">Universidad Autónoma</p>
+                </a>
+            </div>
+
+            <div class="mt-8">
+                <p class="text-sm text-gray-500 mb-4 uppercase tracking-widest font-semibold flex items-center justify-center gap-2"><span class="w-8 h-px bg-gray-300"></span> Tu experiencia es el catalizador de su éxito <span class="w-8 h-px bg-gray-300"></span></p>
+                <a href="https://docs.google.com/forms/d/1oPokMDJhc6zSsNUFAuNUtFnhkNxfaHbh2QPZb1osII4/edit" target="_blank" id="registro-mentor" class="inline-flex items-center gap-3 bg-emerald-accent text-white font-bold text-xl px-10 py-5 rounded-2xl shadow-[0_0_25px_rgba(16,185,129,0.3)] hover:shadow-[0_0_35px_rgba(16,185,129,0.5)] hover:bg-emerald-600 hover:-translate-y-1 transition-all duration-300 group">
+                    <i class="fa-solid fa-hand-holding-heart text-2xl group-hover:scale-110 transition-transform"></i>
+                    Súmate al esfuerzo adoptando un proyecto como mentor
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Showcase de Proyectos 2026 -->
+    <section id="proyectos" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-airbus-blue mb-4">Showcase de Proyectos 2026</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Conoce las soluciones tecnológicas propuestas por los estudiantes de Morelos para resolver problemáticas locales con impacto global. Con la tutoría de investigadoras e investigadores de Morelos, estos proyectos serán semilla de soluciones globales.</p>
+            </div>
+
+            <!-- Project Cards Grid -->
+            
+<!-- SECCIONES DE PROYECTOS CATEGORIZADAS -->
+
+
+
+
+
+
+<!-- SECCIONES DE PROYECTOS CATEGORIZADAS -->
+<div class="space-y-6">
+
+    <!-- Categoría: Agua y Conservación Ambiental -->
+    <details class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300">
+        <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
+            <div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0">
+                <i class="fa-solid fa-droplet text-2xl"></i>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-airbus-blue flex-grow">Agua y Conservación Ambiental</h3>
+            <span class="bg-blue-500/20 text-blue-500 text-sm font-bold px-3 py-1 rounded-full mr-2 md:mr-4 shrink-0 shadow-sm">9</span>
+            <i class="fa-solid fa-chevron-down text-gray-400 text-xl transform group-open:rotate-180 transition-transform duration-300"></i>
+        </summary>
+        
+        <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+    
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Proyecto Airbus: Hidroponia</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Proyecto Airbus: Hidroponia  Contexto: Identificación del reto local En el entorno del Plantel 01, se presentan desafíos relacionados con el elevado costo de los alimentos frescos y la falta de espacios adecuados para la...</p>
+                        <a href="extracted_all/doc_1.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Aprovechamiento De Aguas De Desecho De La Actividad Acuícola Para Generar Energía Eléctric</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Por esta situación, nace la inquietud de enfocar el presente proyecto para aprovechar este “desecho” para obtener electricidad que satisfaga parte de las necesidades energéticas de los productores de la zona.</p>
+                        <a href="extracted_all/doc_3.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Sistema Integral De Reutilización De Aguas Residuales Mediante Filtración Biotecnológica, </h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">OBJETIVO GENERAL Desarrollar un sistema biotecnológico integral para el tratamiento y reutilización de aguas residuales con fines de riego agrícola, que incorpore energías renovables y aprovechamiento de subproductos, co...</p>
+                        <a href="extracted_all/doc_5.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Aprovechamiento De Aguas De Desecho De La Actividad Acuícola Para Generar Energía</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Formato de proyecto  Aprovechamiento de aguas de desecho de la actividad acuícola para generar energía  eléctrica complementaria en la localidad de Chinameca, Villa de Ayala, Morelos.</p>
+                        <a href="extracted_all/doc_18.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Reutilicemos H20</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Al observar este problema es cuando surge la idea del proyecto y los beneficios que puede generar, si se le da una solución a esto utilizando  nuevas alternativas; por lo  que se propone un sistema de reciclaje de aguas ...</p>
+                        <a href="extracted_all/doc_19.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Nombre Del Proyecto: Agua Segura Emsad 07: Monitoreo Inteligente De Consumo Y</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Nombre del Proyecto: Agua Segura EMSaD 07: Monitoreo inteligente de consumo y  detección temprana de fugas con instrumentación de bajo costo  Sede: COBAEM EMSaD 07 Jumiltepec, Ocuituco, Morelos    Contexto y problema por...</p>
+                        <a href="extracted_all/doc_21.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Sistema Reutilizador Y Filtrador De Agua Residual Proveniente Del Lavabo Para Su Aprovecha</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">SISTEMA REUTILIZADOR Y FILTRADOR DE AGUA RESIDUAL PROVENIENTE DEL LAVABO PARA SU APROVECHAMIENTO EN LOS INODOROS DE HOMBRES Y MUJERES EN EL PLANTEL 02, JIUTEPEC.</p>
+                        <a href="extracted_all/doc_26.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Ecoba Huella: Hojarasca 360</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Uno de los objetivos del desarrollo sostenible se refiere a trabajar para crear ciudades y comunidades sostenibles; precisamente este proyecto está enfocado en acciones tendientes a: 1)mejorar la salud del suelo y restau...</p>
+                        <a href="extracted_all/doc_27.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Filtro Para Grasas</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Objetivos:  Elaborar un filtro con cabello humano que retenga partículas de aceite.</p>
+                        <a href="extracted_all/doc_28.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </details>
+    
+    <!-- Categoría: Energía Sustentable -->
+    <details class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300">
+        <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
+            <div class="w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0">
+                <i class="fa-solid fa-sun text-2xl"></i>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-airbus-blue flex-grow">Energía Sustentable</h3>
+            <span class="bg-yellow-500/20 text-yellow-500 text-sm font-bold px-3 py-1 rounded-full mr-2 md:mr-4 shrink-0 shadow-sm">8</span>
+            <i class="fa-solid fa-chevron-down text-gray-400 text-xl transform group-open:rotate-180 transition-transform duration-300"></i>
+        </summary>
+        
+        <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+    
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Sistema Fotovoltaico Con Camara De Reflexion Interna</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">SISTEMA FOTOVOLTAICO CON CAMARA DE REFLEXION INTERNA  El proyecto consiste en la construcción de un prototipo experimental en forma de cubo, cuyas caras laterales están compuestas de paneles solares, mientras que la base...</p>
+                        <a href="extracted_all/doc_2.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Elaboración De Un Secador Solar Para Alimentos</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">El municipio de Yautepec se encuentra ubicado al norte del estado de Morelos,</p>
+                        <a href="extracted_all/doc_8.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Proyecto Steam: Energía Solar Y Ventilación Sostenible</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Proyecto STEAM: Energía Solar y Ventilación Sostenible  1.</p>
+                        <a href="extracted_all/doc_10.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Generación De Electricidad Mediante La Transformación De Energía Hidráulica Del Canal De J</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">GENERACIÓN DE ELECTRICIDAD MEDIANTE LA TRANSFORMACIÓN DE ENERGÍA HIDRÁULICA DEL CANAL DE JIUTEPEC PARA EL ALUMBRADO DE LAS CANCHAS DEL COBAEM 02 (TURBI-GENERADOR) Objetivo general: Que los estudiantes diseñen y construya...</p>
+                        <a href="extracted_all/doc_17.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Azotea Verde Para Reducir El Calor En Aulas</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Se plantea en esta propuesta una solución natural alterna para mejorar las condiciones de  trabajo dentro de las aulas: la implementación de azoteas verdes.</p>
+                        <a href="extracted_all/doc_20.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Xinachtli Solar</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Ana Laura Sarracino Ortiz   a.sarracino@cobaem.edu.mx       Xinachtli Solar (Semilla solar) es un proyecto emergente propuesto por estudiantes de segundo semestre  del COBAEM Plantel 14.</p>
+                        <a href="extracted_all/doc_22.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Diseño Y Experimentación De Un Horno Solar Para Figuras De Barro En Cuentepec, Temixco, Mo</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">(Propuesta de proyecto para Morelos Despega)  La comunidad de Cuentepec, del municipio de Temixco del Estado de Morelos, en donde se encuentra nuestro plantel, es una comunidad de vocación rural, con un profundo arraigo ...</p>
+                        <a href="extracted_all/doc_23.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">(Esta Es Una Guía, Por Favor Subir Este Documento Al Cuestionario De Registro Https://Form</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Formato de proyecto (Esta es una guía, por favor subir este documento al cuestionario de registro https://forms.gle/3bD5x7Svw8hoHGx2A ) Favor de describir su propuesta para que el Instituto de Ciencias Físicas de la UNAM...</p>
+                        <a href="extracted_all/doc_25.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </details>
+    
+    <!-- Categoría: Agricultura y Agrotecnología -->
+    <details class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300">
+        <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
+            <div class="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center text-green-500 shrink-0">
+                <i class="fa-solid fa-leaf text-2xl"></i>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-airbus-blue flex-grow">Agricultura y Agrotecnología</h3>
+            <span class="bg-green-500/20 text-green-500 text-sm font-bold px-3 py-1 rounded-full mr-2 md:mr-4 shrink-0 shadow-sm">8</span>
+            <i class="fa-solid fa-chevron-down text-gray-400 text-xl transform group-open:rotate-180 transition-transform duration-300"></i>
+        </summary>
+        
+        <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+    
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-green-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-green-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-leaf text-6xl text-green-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agricultura</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Implemetacion De Un Huerto Escolar Basado En El Riego  Sustentable Utilizando La Captación</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">OBJETIVOS GENERALES: Concientizar a los estudiantes del EMSaD 06 sobre la importancia e impacto que genera la creación de huertos escolares y la reforestación y cuidado de áreas verdes.</p>
+                        <a href="extracted_all/doc_0.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-green-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-green-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-leaf text-6xl text-green-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agricultura</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Frutomatic 07, Un Camino A La Robótica</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">FrutoMatic 07, un camino a la robótica Objetivo general	 Diseñar y construir un prototipo funcional de mano mecánica robótica para el corte de frutas, que reduzca el esfuerzo físico, incremente la seguridad y mejore la p...</p>
+                        <a href="extracted_all/doc_4.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-green-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-green-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-leaf text-6xl text-green-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agricultura</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Viabilidad Del Cultivo De La Cochinilla Grana En Los Campos De Nopal Del Municipio De Toto</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Existen diferentes sistemas de producción en México para los cultivos del nopal: el de planta en pié (cielo abierto y tapexco) y los de penca cortada (microtúnel e invernadero comercial), el empleo de cada uno de ellos d...</p>
+                        <a href="extracted_all/doc_7.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-green-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-green-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-leaf text-6xl text-green-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agricultura</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Bio-Fábrica Emsad 07:Desarrollo Experimental De Biopolímeros A Partir De Residuos De</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">El presente proyecto propone transformar residuos de hueso de aguacate en un biopolímero  biodegradable y desarrollar una línea de prototipos agrícolas derivados del mismo material:  macetas de germinación, bandejas de a...</p>
+                        <a href="extracted_all/doc_11.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-green-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-green-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-leaf text-6xl text-green-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agricultura</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Recuperación De Suelos: Biofertilizante 08</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Objetivo general  Desarrollar e implementar un sistema de producción y aplicación de biofertilizantes  frutales con lombricomposta para la recuperación del suelo agrícola en Tehuixtla,  Morelos.</p>
+                        <a href="extracted_all/doc_12.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-green-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-green-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-leaf text-6xl text-green-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agricultura</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Implemetacion De Un Huerto Escolar Basado En El Riego  Sustentable Utilizando La Captación</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">OBJETIVOS GENERALES: Concientizar a los estudiantes del EMSaD 06 sobre la importancia e impacto que genera la creación de huertos escolares y la reforestación y cuidado de áreas verdes.</p>
+                        <a href="extracted_all/doc_13.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-green-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-green-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-leaf text-6xl text-green-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agricultura</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Sistema Autónomo De Producción Sustentable De Hongos Seta Con</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">El espacio donde se desarrolla  nuestro proyecto PAEC sobre el cultivo de hongos setas (Pleurotus ostreatus)  carece del uso de energía eléctrica incluso para facilitar el acceso al área y sobre  todos si se quisiera imp...</p>
+                        <a href="extracted_all/doc_14.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-green-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-green-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-leaf text-6xl text-green-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agricultura</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Diseño E Implementación De Un Sistema Hidropónico Sustentable Para La Producción De Planta</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Objetivo general: Diseñar e implementar un sistema hidropónico sustentable con herramientas STEM, para la producción de plantas con propiedades repelentes, destinadas a la elaboración de un biorepelente natural contra in...</p>
+                        <a href="extracted_all/doc_24.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </details>
+    
+    <!-- Categoría: Robótica y Tecnología -->
+    <details class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300">
+        <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
+            <div class="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500 shrink-0">
+                <i class="fa-solid fa-robot text-2xl"></i>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-airbus-blue flex-grow">Robótica y Tecnología</h3>
+            <span class="bg-purple-500/20 text-purple-500 text-sm font-bold px-3 py-1 rounded-full mr-2 md:mr-4 shrink-0 shadow-sm">1</span>
+            <i class="fa-solid fa-chevron-down text-gray-400 text-xl transform group-open:rotate-180 transition-transform duration-300"></i>
+        </summary>
+        
+        <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+    
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-purple-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-purple-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-robot text-6xl text-purple-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Robótica</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">En El Contexto Actual De Transformación Digital Educativa, Las Instituciones Enfrentan El </h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">En muchos  casos, estos datos se encuentran dispersos en registros físicos, hojas de cálculo independientes o sistemas  fragmentados, lo que genera inconsistencias, duplicidad de información y vulnerabilidad en el manejo...</p>
+                        <a href="extracted_all/doc_6.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </details>
+    
+    <!-- Categoría: Salud y Bienestar -->
+    <details class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300">
+        <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
+            <div class="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 shrink-0">
+                <i class="fa-solid fa-heart-pulse text-2xl"></i>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-airbus-blue flex-grow">Salud y Bienestar</h3>
+            <span class="bg-red-500/20 text-red-500 text-sm font-bold px-3 py-1 rounded-full mr-2 md:mr-4 shrink-0 shadow-sm">2</span>
+            <i class="fa-solid fa-chevron-down text-gray-400 text-xl transform group-open:rotate-180 transition-transform duration-300"></i>
+        </summary>
+        
+        <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+    
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-red-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-red-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-heart-pulse text-6xl text-red-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Salud</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Nombre Del Proyecto: “Sop Bajo Control”</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Nombre del Proyecto: “SOP bajo control”  Contexto y problema por resolver: El Síndrome de Ovario Poliquístico (SOP) es el trastorno endocrino más común en mujeres en edad fértil, con una prevalencia de 21% en la població...</p>
+                        <a href="extracted_all/doc_9.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-red-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-red-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-heart-pulse text-6xl text-red-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Salud</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">La Calidad Del Aire Es Calidad De Vida</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">El colegio de Bachilleres del Estado de Morelos (COBAEM) plantel 01, Cuernavaca, se ubica en el Norte de la ciudad, es el plantel principal y tiene una matrícula mayor a los 3,000 alumnos, en dos turnos, matutino y vespe...</p>
+                        <a href="extracted_all/doc_15.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </details>
+    
+    <!-- Categoría: Otros Iniciativas STEM -->
+    <details class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300">
+        <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
+            <div class="w-12 h-12 rounded-full bg-gray-500/10 flex items-center justify-center text-gray-500 shrink-0">
+                <i class="fa-solid fa-lightbulb text-2xl"></i>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-airbus-blue flex-grow">Otros Iniciativas STEM</h3>
+            <span class="bg-gray-500/20 text-gray-500 text-sm font-bold px-3 py-1 rounded-full mr-2 md:mr-4 shrink-0 shadow-sm">1</span>
+            <i class="fa-solid fa-chevron-down text-gray-400 text-xl transform group-open:rotate-180 transition-transform duration-300"></i>
+        </summary>
+        
+        <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+    
+                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
+                    <div class="h-40 bg-gray-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-gray-500/20 transition-colors duration-500">
+                        <i class="fa-solid fa-lightbulb text-6xl text-gray-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Otros</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">Proyecto Steam: Cianotipia Botánica-Ciencia Y Arte</h4>
+                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">TEMA: PROYECTO STEAM: CIANOTIPIA BOTÁNICA-CIENCIA Y ARTE  EN ACCIÒN  Contexto y problema por resolver   En este proyecto se utilizará el arte no como medio decorativo si no como lenguaje  científico, herramienta de sensi...</p>
+                        <a href="extracted_all/doc_16.pdf" target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'); return false;" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver doc. original <i class="fa-solid fa-file-pdf"></i></a>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </details>
+    </div>
+<!-- FIN SECCIONES -->
+
+            <!-- FIN SECCIONES -->
+
+            <!-- FIN SECCIONES -->
+
+            <!-- FIN SECCIONES -->
+
+            <!-- FIN SECCIONES -->
+
+            <!-- FIN SECCIONES -->
+
+            <!-- FIN SECCIONES -->
+
+            <!-- Interactive Map -->
+            <div class="mt-16 bg-white p-2 md:p-6 rounded-2xl shadow-lg border border-gray-100">
+                <h3 class="text-2xl font-bold text-airbus-blue mb-6 border-b pb-4"><i class="fa-solid fa-map-location-dot text-emerald-accent mr-2"></i> Red de Unidades EMSAD Morelos</h3>
+                <div id="map" class="w-full h-[400px] rounded-xl z-10"></div>
+                <!-- Leaflet configuration is in script.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Repositorio Técnico (Wiki AFDS) -->
+    <section id="wiki" class="py-20 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 drop-shadow-md">Repositorio Técnico <span class="text-emerald-accent">Wiki</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Herramientas, metodologías y fragmentos de código abiertos para la comunidad docente y estudiantil.</p>
+            </div>
+
+            <!-- Tabs Container -->
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-wrap border-b border-gray-700 mb-6" id="tabs">
+                    <button class="tab-btn active px-6 py-4 text-sm font-semibold uppercase focus:outline-none border-b-2 border-emerald-accent text-white transition-colors" data-tab="tab-metodologia">
+                        <i class="fa-solid fa-layer-group mr-2"></i>Metodología AFDS
+                    </button>
+                    <button class="tab-btn px-6 py-4 text-sm font-semibold uppercase focus:outline-none border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition-colors" data-tab="tab-guias">
+                        <i class="fa-solid fa-book-open mr-2"></i>Guías por Área
+                    </button>
+                    <button class="tab-btn px-6 py-4 text-sm font-semibold uppercase focus:outline-none border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition-colors" data-tab="tab-codigo">
+                        <i class="fa-solid fa-code mr-2"></i>Documentación (Hardware)
+                    </button>
+                </div>
+
+                <!-- Tab Contents -->
+                <div class="bg-gray-800 rounded-xl p-6 md:p-8 shadow-inner border border-gray-700">
+                    <!-- Tab 1: Metodología -->
+                    <div id="tab-metodologia" class="tab-content active">
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fa-solid fa-toolbox text-emerald-accent"></i> La "Caja de Herramientas" AFDS</h3>
+                        <p class="text-gray-300 mb-4 leading-relaxed">
+                            La propuesta educativa de Airbus Foundation Discovery Space se basa en un enfoque de aprendizaje basado en proyectos (PBL). Nuestra "Caja de Herramientas" metodológica equipa a los facilitadores con secuencias didácticas validadas internacionalmente, adaptadas para funcionar en contextos de conectividad y recursos iniciales limitados en los EMSAD de Morelos.
+                        </p>
+                        <ul class="space-y-3 mt-6">
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-emerald-accent mt-1"></i> <span class="text-gray-300"><strong>Ideación Local:</strong> Identificación de problemas de la comunidad.</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-emerald-accent mt-1"></i> <span class="text-gray-300"><strong>Diseño Aeroespacial:</strong> Aplicación de principios de diseño iterativo inspirados en ingeniería de vuelo.</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-emerald-accent mt-1"></i> <span class="text-gray-300"><strong>Prototipado FRUGAL:</strong> Construcción de soluciones utilizando electrónica accesible (Arduino, sensores genéricos) y materiales reciclados.</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Tab 2: Guías -->
+                    <div id="tab-guias" class="tab-content hidden">
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="bg-gray-900 border border-gray-700 p-5 rounded-lg hover:border-emerald-accent transition-colors">
+                                <i class="fa-solid fa-satellite text-3xl text-blue-400 mb-3"></i>
+                                <h4 class="font-bold text-lg mb-2">Observación de la Tierra</h4>
+                                <p class="text-sm text-gray-400 mb-4">Uso de datos abiertos del satélite Landsat para monitoreo agrícola e incendios forestales.</p>
+                                <a href="#" class="text-emerald-accent text-sm hover:underline">Ver guía <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                            </div>
+                            <div class="bg-gray-900 border border-gray-700 p-5 rounded-lg hover:border-emerald-accent transition-colors">
+                                <i class="fa-solid fa-plane text-3xl text-indigo-400 mb-3"></i>
+                                <h4 class="font-bold text-lg mb-2">Ingeniería de Vuelo</h4>
+                                <p class="text-sm text-gray-400 mb-4">Principios de aerodinámica aplicados a la construcción y programación de nano-drones.</p>
+                                <a href="#" class="text-emerald-accent text-sm hover:underline">Ver guía <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                            </div>
+                            <div class="bg-gray-900 border border-gray-700 p-5 rounded-lg hover:border-emerald-accent transition-colors">
+                                <i class="fa-solid fa-leaf text-3xl text-emerald-500 mb-3"></i>
+                                <h4 class="font-bold text-lg mb-2">Sostenibilidad (SAF)</h4>
+                                <p class="text-sm text-gray-400 mb-4">Introducción a los Combustibles de Aviación Sostenibles y biotecnología a nivel escolar.</p>
+                                <a href="#" class="text-emerald-accent text-sm hover:underline">Ver guía <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Código -->
+                    <div id="tab-codigo" class="tab-content hidden">
+                        <h3 class="text-xl font-bold mb-4">Snippets Destacados: Lectura de Humedad (Arduino)</h3>
+                        <p class="text-sm text-gray-400 mb-4">Código base utilizado en el proyecto "Agro-Tech Morelos" para la captura de datos de humedad analógica.</p>
+                        <div class="relative rounded-lg overflow-hidden bg-[#1e1e1e] p-4 text-sm font-mono text-gray-300">
+                            <pre><code><span class="text-purple-400">int</span> <span class="text-blue-300">sensorPin</span> = A0; <span class="text-gray-500">// Pin del sensor de humedad</span>
+<span class="text-purple-400">int</span> <span class="text-blue-300">sensorValue</span> = <span class="text-orange-300">0</span>;
+
+<span class="text-purple-400">void</span> <span class="text-yellow-200">setup</span>() {
+  <span class="text-cyan-300">Serial</span>.<span class="text-yellow-200">begin</span>(<span class="text-orange-300">9600</span>);
+}
+
+<span class="text-purple-400">void</span> <span class="text-yellow-200">loop</span>() {
+  sensorValue = <span class="text-yellow-200">analogRead</span>(sensorPin);
+  <span class="text-cyan-300">Serial</span>.<span class="text-yellow-200">println</span>(sensorValue);
+  <span class="text-yellow-200">delay</span>(<span class="text-orange-300">1000</span>); <span class="text-gray-500">// Leer cada segundo</span>
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 5. Recursos Docentes -->
+    <section id="recursos" class="py-20 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-airbus-blue mb-10 border-l-4 border-emerald-accent pl-4">Recursos Descargables</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- PDF 1 -->
+                <a href="#" class="flex items-center p-5 bg-light-bg rounded-xl hover:bg-gray-50 border border-gray-200 transition-colors group relative overflow-hidden">
+                    <div class="absolute inset-y-0 left-0 w-1 bg-emerald-accent transform scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-300"></div>
+                    <i class="fa-solid fa-file-pdf text-red-500 text-3xl mr-4 group-hover:scale-110 transition-transform"></i>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm md:text-base">Hojas de actividades AFDS</h4>
+                        <p class="text-xs text-gray-500 mt-1">PDF • 2.4 MB</p>
+                    </div>
+                    <i class="fa-solid fa-download ml-auto text-gray-400 group-hover:text-airbus-blue"></i>
+                </a>
+
+                <!-- PDF 2 -->
+                <a href="#" class="flex items-center p-5 bg-light-bg rounded-xl hover:bg-gray-50 border border-gray-200 transition-colors group relative overflow-hidden">
+                    <div class="absolute inset-y-0 left-0 w-1 bg-emerald-accent transform scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-300"></div>
+                    <i class="fa-solid fa-file-pdf text-red-500 text-3xl mr-4 group-hover:scale-110 transition-transform"></i>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm md:text-base">Guía Becoming Yourself</h4>
+                        <p class="text-xs text-gray-500 mt-1">PDF • 1.8 MB</p>
+                    </div>
+                    <i class="fa-solid fa-download ml-auto text-gray-400 group-hover:text-airbus-blue"></i>
+                </a>
+
+                <!-- PDF 3 -->
+                <a href="#" class="flex items-center p-5 bg-light-bg rounded-xl hover:bg-gray-50 border border-gray-200 transition-colors group relative overflow-hidden">
+                    <div class="absolute inset-y-0 left-0 w-1 bg-emerald-accent transform scale-y-0 group-hover:scale-y-100 origin-bottom transition-transform duration-300"></div>
+                    <i class="fa-solid fa-file-pdf text-red-500 text-3xl mr-4 group-hover:scale-110 transition-transform"></i>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm md:text-base">Talleres FAIR ENOUGH</h4>
+                        <p class="text-xs text-gray-500 mt-1">PDF • 3.1 MB</p>
+                    </div>
+                    <i class="fa-solid fa-download ml-auto text-gray-400 group-hover:text-airbus-blue"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Noticias y Futuro -->
+    <section id="noticias" class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-airbus-blue mb-16">Línea de Tiempo 2026</h2>
+            
+            <!-- Timeline -->
+            <div class="relative border-l-4 border-airbus-blue/20 ml-3 md:ml-6 space-y-12">
+                
+                <!-- Item 1: Completado -->
+                <div class="relative pl-8 md:pl-10">
+                    <div class="absolute -left-3 md:-left-3.5 top-1 w-6 h-6 rounded-full bg-emerald-accent border-4 border-white shadow"></div>
+                    <div class="text-emerald-accent font-bold text-sm tracking-widest uppercase mb-1">Fase 1 • Ene - Mar 2026 (Completado)</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Lanzamiento y Capacitación Morelos</h3>
+                    <p class="text-gray-600">Capacitación intensiva de docentes en las sedes de EMSAD y entrega de los primeros kits tecnológicos de Airbus Foundation para el arranque del ciclo.</p>
+                </div>
+
+                <!-- Item 2: En curso (Abril) -->
+                <div class="relative pl-8 md:pl-10">
+                    <div class="absolute -left-3 md:-left-3.5 top-1 w-6 h-6 rounded-full bg-airbus-blue border-4 border-white shadow animate-pulse"></div>
+                    <div class="text-airbus-blue font-bold text-sm tracking-widest uppercase mb-1">Fase 2 • Abril 2026 (En Curso)</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Ideación y Prototipado en Sedes</h3>
+                    <p class="text-gray-600">Actualmente los estudiantes están en fase de diseño, utilizando la "Caja de Herramientas" metodológica para prototipar soluciones STEM.</p>
+                </div>
+
+                <!-- Item 3: Futuro -->
+                <div class="relative pl-8 md:pl-10">
+                    <div class="absolute -left-3 md:-left-3.5 top-1 w-6 h-6 rounded-full bg-gray-300 border-4 border-white shadow"></div>
+                    <div class="text-gray-500 font-bold text-sm tracking-widest uppercase mb-1">Fase 3 • May - Jul 2026 (Próximamente)</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Hackathon de Impacto Social</h3>
+                    <p class="text-gray-600">Reunión de alumnos finalistas en un evento intensivo en Cuernavaca para refinar prototipos y presentar avances ante el comité de evaluación.</p>
+                </div>
+
+                <!-- Item 4: Futuro -->
+                <div class="relative pl-8 md:pl-10">
+                    <div class="absolute -left-3 md:-left-3.5 top-1 w-6 h-6 rounded-full bg-gray-300 border-4 border-white shadow"></div>
+                    <div class="text-gray-500 font-bold text-sm tracking-widest uppercase mb-1">Fase 4 • Ago - Dic 2026 (Futuro)</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">STEM Impact Fair & Expansión Nacional</h3>
+                    <p class="text-gray-600">Presentación de proyectos finales ante líderes de la industria espacial. <strong class="text-airbus-blue">Inicio de la expansión garantizada del programa hacia el sureste.</strong></p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-airbus-blue text-white pt-16 pb-8 border-t-8 border-emerald-accent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div>
+                <div class="font-bold text-2xl tracking-tight mb-4">Morelos Despega</div>
+                <p class="text-blue-200 text-sm">Empoderando mentes jóvenes para construir el futuro mediante educación STEM accesible y de alto impacto.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4">Aliados</h4>
+                <ul class="space-y-2 text-sm text-blue-200">
+                    <li><a href="https://www.airbus.com/en/sustainability/airbus-foundation" target="_blank" class="hover:text-emerald-accent transition-colors">Airbus Foundation</a></li>
+                    <li><a href="https://www.fis.unam.mx" target="_blank" class="hover:text-emerald-accent transition-colors">Instituto de Ciencias Físicas (UNAM)</a></li>
+                    <li><a href="https://www.cobaem.edu.mx/" target="_blank" class="hover:text-emerald-accent transition-colors">COBAEM - EMSAD</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4">Contacto</h4>
+                <p class="text-sm text-blue-200 mb-2"><i class="fa-regular fa-envelope mr-2"></i> contacto@morelosdespega.mx</p>
+                <div class="flex gap-4 mt-4">
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-emerald-accent transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-emerald-accent transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-emerald-accent transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-xs text-blue-300 border-t border-blue-800 pt-8">
+            &copy; 2026 Morelos Despega. Aplicación desarrollada para GitHub Pages. <br>
+            <i>Aviso: Las imágenes y videos son representativos y/o provistos por Unsplash.</i>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Custom script files -->
+    <script src="script.js"></script>
+</body>
+</html>
