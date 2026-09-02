@@ -269,312 +269,1321 @@
             <!-- Project Cards Grid -->
             
 <!-- SECCIONES DE PROYECTOS CATEGORIZADAS -->
-<div class="space-y-6">
 
-    <!-- Categoría: Energías Renovables y Eficiencia Energética -->
-    <details class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300">
-        <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
-            <div class="w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0">
-                <i class="fa-solid fa-sun text-2xl"></i>
+            <!-- Barra de Controles y Descarga de Catálogo -->
+            <div class="mb-10 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+                    <!-- Buscador reactivo -->
+                    <div class="w-full lg:w-96 relative">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <input type="text" id="project-search-input" placeholder="Buscar por proyecto, plantel o tema..." 
+                            class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-accent/50 focus:border-emerald-accent transition-all">
+                    </div>
+
+                    <!-- Botones de Acción / Catálogo PDF -->
+                    <div class="flex items-center gap-3 w-full lg:w-auto justify-end flex-wrap">
+                        <span class="text-xs font-semibold text-gray-500 hidden sm:inline">23 Proyectos Oficiales • 6 Áreas</span>
+                        <a href="Catalogo_Proyectos.pdf" target="_blank" download="Catalogo_Proyectos_Airbus_COBAEM.pdf"
+                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-airbus-blue text-white rounded-xl text-sm font-semibold hover:bg-opacity-90 transition-all shadow-sm hover:shadow group">
+                            <i class="fa-solid fa-file-pdf text-red-400 group-hover:scale-110 transition-transform"></i>
+                            <span>Descargar Catálogo Completo (PDF)</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Filtros rápidos por categoría -->
+                <div class="flex items-center gap-2 overflow-x-auto pt-4 mt-4 border-t border-gray-100 pb-1 scrollbar-none text-xs">
+                    <span class="text-gray-400 font-semibold uppercase tracking-wider text-[11px] mr-1 shrink-0">Filtrar:</span>
+                    <button type="button" class="category-filter-btn active px-3.5 py-1.5 rounded-full font-medium transition-all bg-airbus-blue text-white shadow-xs" data-filter="all">
+                        Todos (23)
+                    </button>
+                        <button type="button" class="category-filter-btn px-3.5 py-1.5 rounded-full font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all shrink-0" data-filter="energia">
+                        Energías Renovables (7)
+                    </button>
+                    <button type="button" class="category-filter-btn px-3.5 py-1.5 rounded-full font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all shrink-0" data-filter="agua">
+                        Agua, (4)
+                    </button>
+                    <button type="button" class="category-filter-btn px-3.5 py-1.5 rounded-full font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all shrink-0" data-filter="biotecnologia">
+                        Biotecnología, (8)
+                    </button>
+                    <button type="button" class="category-filter-btn px-3.5 py-1.5 rounded-full font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all shrink-0" data-filter="salud">
+                        Salud (2)
+                    </button>
+                    <button type="button" class="category-filter-btn px-3.5 py-1.5 rounded-full font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all shrink-0" data-filter="tecnologia">
+                        Monitoreo (1)
+                    </button>
+                    <button type="button" class="category-filter-btn px-3.5 py-1.5 rounded-full font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all shrink-0" data-filter="economia-circular">
+                        Educación Ambiental (1)
+                    </button>
+                </div>
             </div>
-            <h3 class="text-xl md:text-2xl font-bold text-airbus-blue flex-grow">Energías Renovables y Eficiencia Energética</h3>
-            <span class="bg-yellow-500/20 text-yellow-500 text-sm font-bold px-3 py-1 rounded-full mr-2 md:mr-4 shrink-0 shadow-sm">7</span>
-            <i class="fa-solid fa-chevron-down text-gray-400 text-xl transform group-open:rotate-180 transition-transform duration-300"></i>
-        </summary>
+
+            <!-- Listado de Categorías de Proyectos -->
+            <div id="projects-container" class="space-y-6">
+    
+                <!-- Categoría: Energías Renovables y Eficiencia Energética -->
+                <details class="category-group group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300" data-category="energia" open>
+                    <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50/80 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 border border-amber-500/20 flex items-center justify-center shrink-0 shadow-xs">
+                            <i class="fa-solid fa-solar-panel text-2xl"></i>
+                        </div>
+                        <div class="flex-grow min-w-0">
+                            <div class="flex items-center gap-3 flex-wrap">
+                                <h3 class="text-xl md:text-2xl font-bold text-airbus-blue leading-snug">Energías Renovables y Eficiencia Energética</h3>
+                                <span class="bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold px-2.5 py-0.5 rounded-full shrink-0 shadow-2xs">
+                                    7 proyectos
+                                </span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 line-clamp-1">Proyectos que generan, aprovechan o mejoran el uso de energía a partir de fuentes limpias y renovables.</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:text-airbus-blue group-open:rotate-180 transition-transform duration-300 shrink-0">
+                            <i class="fa-solid fa-chevron-down text-sm"></i>
+                        </div>
+                    </summary>
+                    
+                    <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2 bg-slate-50/30">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
         
-        <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+                            <!-- Tarjeta de Proyecto 01 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="01"
+                                data-title="energía solar y ventilación sostenible"
+                                data-plantel="plantel 05 amacuzac"
+                                data-summary="sistema de extracción forzada de calor en aulas alimentado por energía solar directa (sin baterías), para reducir la temperatura interior en zonas de clima extremo.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-amber-500/15 via-amber-400/10 to-yellow-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-solar-panel text-5xl text-amber-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 01
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Energía Limpia
+                                    </div>
+                                </div>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">1. Energía solar y ventilación sostenible</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">El municipio de Amacuzac es considerado uno de los más calurosos del estado de Morelos. Aunque el promedio general es de 22° a 26° C, en la temporada ...</p>
-                        <a href="Nuevos proyectos/Proyecto_1.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 05 Amacuzac</span>
+                                    </div>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">2. Azotea verde para reducir el calor en las aulas</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">El calor dentro del aula 603M, en épocas de primavera y verano, dificulta la atención de clases y la comodidad de la comunidad escolar, por lo que se ...</p>
-                        <a href="Nuevos proyectos/Proyecto_2.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Energía solar y ventilación sostenible
+                                    </h4>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">3. Crea tu libreta, taller sustentable - ciencia y arte</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">En la comunidad de Tehuixtla se ha observado, mediante entrevistas realizadas y la identificación de 5 instituciones educativas diferentes (2 primaria...</p>
-                        <a href="Nuevos proyectos/Proyecto_3.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Sistema de extracción forzada de calor en aulas alimentado por energía solar directa (sin baterías), para reducir la temperatura interior en zonas de clima extremo.
+                                    </p>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">4. Bachimangos Aprovechamiento Integral del Mango mediante S...</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Existe la necesidad de aprovechar de manera sustentable la producción de mango presente en el plantel, ya que actualmente una gran cantidad de frutos ...</p>
-                        <a href="Nuevos proyectos/Proyecto_4.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_01.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 01</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 04 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="04"
+                                data-title="azotea verde para reducir el calor en las aulas"
+                                data-plantel="plantel 03 oacalco"
+                                data-summary="instalación de techo verde sobre el aula 603m para reducir ~5 °c la temperatura interior mediante el efecto de aislamiento y evapotranspiración de plantas.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-amber-500/15 via-amber-400/10 to-yellow-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-solar-panel text-5xl text-amber-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 04
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Energía Limpia
+                                    </div>
+                                </div>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">5. COBAEnergy</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Con base en las encuestas realizadas en el plantel 04 COBAEM se obtuvieron los siguientes resultados: 1. Los estudiantes, personal administrativo y doc...</p>
-                        <a href="Nuevos proyectos/Proyecto_5.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 03 Oacalco</span>
+                                    </div>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">6. Generación de electricidad mediante la transformación de ...</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Los alumnos y el personal del turno vespertino (especialmente las alumnas y el equipo de intendencia/vigilancia) se enfrentan a un entorno escolar que...</p>
-                        <a href="Nuevos proyectos/Proyecto_6.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Azotea verde para reducir el calor en las aulas
+                                    </h4>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-yellow-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-yellow-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-sun text-6xl text-yellow-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Energía</div>
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Instalación de techo verde sobre el aula 603M para reducir ~5 °C la temperatura interior mediante el efecto de aislamiento y evapotranspiración de plantas.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_04.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 04</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 05 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="05"
+                                data-title="piscelectric"
+                                data-plantel="plantel 13 chinameca"
+                                data-summary="generador bimodal (hidráulico/gasolina) que aprovecha el agua de desecho de granjas piscícolas para producir electricidad y evitar pérdidas por cortes de luz.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-amber-500/15 via-amber-400/10 to-yellow-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-solar-panel text-5xl text-amber-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 05
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Energía Limpia
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 13 Chinameca</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Piscelectric
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Generador bimodal (hidráulico/gasolina) que aprovecha el agua de desecho de granjas piscícolas para producir electricidad y evitar pérdidas por cortes de luz.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_05.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 05</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 12 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="12"
+                                data-title="cobaenergy"
+                                data-plantel="plantel 04 cuautla"
+                                data-summary="bicicleta estacionaria que convierte energía cinética en eléctrica para cargar dispositivos móviles, fomentando actividad física y reduciendo consumo de la red.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-amber-500/15 via-amber-400/10 to-yellow-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-solar-panel text-5xl text-amber-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 12
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Energía Limpia
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 04 Cuautla</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        COBAEnergy
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Bicicleta estacionaria que convierte energía cinética en eléctrica para cargar dispositivos móviles, fomentando actividad física y reduciendo consumo de la red.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_12.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 12</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 15 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="15"
+                                data-title="generación de electricidad mediante la energía hidráulica del canal de jiutepec"
+                                data-plantel="plantel 02 jiutepec"
+                                data-summary="turbina hidráulica instalada en el canal adyacente al plantel para generar energía limpia destinada al alumbrado de canchas y mejorar la seguridad en el turno vespertino.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-amber-500/15 via-amber-400/10 to-yellow-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-solar-panel text-5xl text-amber-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 15
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Energía Limpia
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 02 Jiutepec</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Generación de electricidad mediante la energía hidráulica del canal de Jiutepec
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Turbina hidráulica instalada en el canal adyacente al plantel para generar energía limpia destinada al alumbrado de canchas y mejorar la seguridad en el turno vespertino.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_15.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 15</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 18 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="18"
+                                data-title="generación de energía limpia y sustentable por medio de la activación física"
+                                data-plantel="plantel 02 jiutepec"
+                                data-summary="bicicletas recicladas adaptadas para transformar el ejercicio de los alumnos en electricidad y cargar celulares, reduciendo el daño a conectores y el gasto energético del plantel.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-amber-500/15 via-amber-400/10 to-yellow-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-solar-panel text-5xl text-amber-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 18
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Energía Limpia
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 02 Jiutepec</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Generación de energía limpia y sustentable por medio de la activación física
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Bicicletas recicladas adaptadas para transformar el ejercicio de los alumnos en electricidad y cargar celulares, reduciendo el daño a conectores y el gasto energético del plantel.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_18.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 18</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 23 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="23"
+                                data-title="proyecto tlekuil-tonale. desarrollo autogestivo de un cocedor solar"
+                                data-plantel="emsad 02 cuentepec"
+                                data-summary="diseño y construcción de un cocedor solar autogestivo para sustituir el uso de leña en la cocina cotidiana de comunidades rurales de morelos, reduciendo la exposición a humos que causan ercs (epoc, enfisema, cáncer de pulmón) en el 80% de adultos mayores de la región.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-amber-500/15 via-amber-400/10 to-yellow-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-solar-panel text-5xl text-amber-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 23
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Energía Limpia
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>EMSAD 02 Cuentepec</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Proyecto Tlekuil-Tonale. Desarrollo autogestivo de un cocedor solar
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Diseño y construcción de un cocedor solar autogestivo para sustituir el uso de leña en la cocina cotidiana de comunidades rurales de Morelos, reduciendo la exposición a humos que causan ERCs (EPOC, enfisema, cáncer de pulmón) en el 80% de adultos mayores de la región.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_23.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 23</span>
+                                    </div>
+                                </div>
+                            </div>
+                                    </div>
                     </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">7. Generación de energía limpia y sustentable por medio de l...</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Uno de los problemas que afecta nuestra sociedad y específicamente a nuestra comunidad estudiantil es la falta de actividad física y consideramos que ...</p>
-                        <a href="Nuevos proyectos/Proyecto_7.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </details>
-
-
-    <!-- Categoría: Agua, Biofiltración y Tratamiento -->
-    <details class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300">
-        <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
-            <div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0">
-                <i class="fa-solid fa-droplet text-2xl"></i>
-            </div>
-            <h3 class="text-xl md:text-2xl font-bold text-airbus-blue flex-grow">Agua, Biofiltración y Tratamiento</h3>
-            <span class="bg-blue-500/20 text-blue-500 text-sm font-bold px-3 py-1 rounded-full mr-2 md:mr-4 shrink-0 shadow-sm">6</span>
-            <i class="fa-solid fa-chevron-down text-gray-400 text-xl transform group-open:rotate-180 transition-transform duration-300"></i>
-        </summary>
+                </details>
         
-        <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
-
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">8. Reutilizando H20</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">En el Colegio de Bachilleres Plantel 01 Cuernavaca, los usuarios (alumnos, docentes y administrativos) enfrentan el riesgo de desabasto con...</p>
-                        <a href="Nuevos proyectos/Proyecto_8.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
-
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">9. Piscelectric, Plantel 13 Chinameca</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Las granjas piscícolas de la comunidad de Chinameca enfrentan cortes constantes de electricidad, lo cual perjudica la producción de peces al no tener ...</p>
-                        <a href="Nuevos proyectos/Proyecto_9.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
-
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">10. Generador bimodal de energía eléctrica aplicado a una gr...</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Las granjas piscícolas de la comunidad de Chinameca enfrentan cortes constantes de electricidad, lo cual perjudica la producción de peces al no tener ...</p>
-                        <a href="Nuevos proyectos/Proyecto_10.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
-
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">11. Hidroponía</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">El problema es: Cómo hacer que crezca una hierba aromática y obtener cosecha durante todo el año o la mayor parte de este para poder obtener beneficio...</p>
-                        <a href="Nuevos proyectos/Proyecto_11.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
-
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">12. Implementación de un filtro hidrofóbico para la retenció...</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Las personas tienen poco o nulo conocimiento acerca del daño ambiental que provoca el desecho de aceites y grasas en la cañería, sin embargo algunos d...</p>
-                        <a href="Nuevos proyectos/Proyecto_12.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
-
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-blue-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-blue-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-droplet text-6xl text-blue-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Agua</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">13. SISTEMA REUTILIZADOR Y FILTRADOR DE AGUA RESIDUAL PROVEN...</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Los 828 alumnos (aproximadamente) de turno matutino del plantel 02 del Colegio de Bachilleres del Estado de Morelos dependemos de un sistema que utili...</p>
-                        <a href="Nuevos proyectos/Proyecto_13.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </details>
-
-
-    <!-- Categoría: Biotecnología, Agricultura y Sustentabilidad -->
-    <details class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300">
-        <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
-            <div class="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 shrink-0">
-                <i class="fa-solid fa-leaf text-2xl"></i>
-            </div>
-            <h3 class="text-xl md:text-2xl font-bold text-airbus-blue flex-grow">Biotecnología, Agricultura y Sustentabilidad</h3>
-            <span class="bg-emerald-500/20 text-emerald-500 text-sm font-bold px-3 py-1 rounded-full mr-2 md:mr-4 shrink-0 shadow-sm">3</span>
-            <i class="fa-solid fa-chevron-down text-gray-400 text-xl transform group-open:rotate-180 transition-transform duration-300"></i>
-        </summary>
+                <!-- Categoría: Agua, Biofiltración y Tratamiento -->
+                <details class="category-group group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300" data-category="agua" open>
+                    <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50/80 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-500 border border-sky-500/20 flex items-center justify-center shrink-0 shadow-xs">
+                            <i class="fa-solid fa-droplet text-2xl"></i>
+                        </div>
+                        <div class="flex-grow min-w-0">
+                            <div class="flex items-center gap-3 flex-wrap">
+                                <h3 class="text-xl md:text-2xl font-bold text-airbus-blue leading-snug">Agua, Biofiltración y Tratamiento</h3>
+                                <span class="bg-sky-100 text-sky-800 border border-sky-200 text-xs font-bold px-2.5 py-0.5 rounded-full shrink-0 shadow-2xs">
+                                    4 proyectos
+                                </span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 line-clamp-1">Proyectos orientados a la captación, reutilización, filtración y gestión eficiente del agua.</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:text-airbus-blue group-open:rotate-180 transition-transform duration-300 shrink-0">
+                            <i class="fa-solid fa-chevron-down text-sm"></i>
+                        </div>
+                    </summary>
+                    
+                    <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2 bg-slate-50/30">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
         
-        <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+                            <!-- Tarjeta de Proyecto 02 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="02"
+                                data-title="reutilizando h₂o"
+                                data-plantel="plantel 01 cuernavaca"
+                                data-summary="sistema de recuperación de aguas grises de lavamanos y tarjas mediante un humedal artificial con plantas ornamentales, para reutilizarlas en el riego de áreas verdes del plantel.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-sky-500/15 via-blue-400/10 to-cyan-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-droplet text-5xl text-sky-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 02
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Gestión Hídrica
+                                    </div>
+                                </div>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-emerald-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-emerald-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-leaf text-6xl text-emerald-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Biotec</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">14. BIO-FABRICA EMSAD 07: desarrollo experimental de biopolí...</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Los productores agrícolas y cultivadores de plantas de Jumiltepec carecen de insumos prácticos, económicos y ecológicos que resuelvan de fo...</p>
-                        <a href="Nuevos proyectos/Proyecto_14.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 01 Cuernavaca</span>
+                                    </div>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-emerald-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-emerald-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-leaf text-6xl text-emerald-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Biotec</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">15. AgroBot - EMSAD 07 JUMILTEPEC</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Los trabajadores dedicados a la cosecha de aguacate y otros frutos requieren una herramienta de corte más eficiente, durable y segura que mantenga un ...</p>
-                        <a href="Nuevos proyectos/Proyecto_15.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Reutilizando H₂O
+                                    </h4>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-emerald-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-emerald-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-leaf text-6xl text-emerald-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Biotec</div>
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Sistema de recuperación de aguas grises de lavamanos y tarjas mediante un humedal artificial con plantas ornamentales, para reutilizarlas en el riego de áreas verdes del plantel.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_02.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 02</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 08 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="08"
+                                data-title="huerto escolar con riego sustentable"
+                                data-plantel="emsad 06 tlacotepec"
+                                data-summary="implementación de captación de agua de lluvia y canalización de aguas grises de lavamanos para el riego del huerto escolar, reduciendo el consumo de agua potable en un 25%.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-sky-500/15 via-blue-400/10 to-cyan-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-droplet text-5xl text-sky-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 08
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Gestión Hídrica
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>EMSAD 06 Tlacotepec</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Huerto Escolar con Riego Sustentable
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Implementación de captación de agua de lluvia y canalización de aguas grises de lavamanos para el riego del huerto escolar, reduciendo el consumo de agua potable en un 25%.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_08.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 08</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 14 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="14"
+                                data-title="implementación de un filtro hidrofóbico para la retención de sustancias oleosas"
+                                data-plantel="plantel 02 jiutepec"
+                                data-summary="filtros elaborados con cabello humano y aserrín para retener aceites y grasas de cocina antes de que lleguen al drenaje, evitando la contaminación de cuerpos de agua en morelos.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-sky-500/15 via-blue-400/10 to-cyan-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-droplet text-5xl text-sky-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 14
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Gestión Hídrica
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 02 Jiutepec</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Implementación de un filtro hidrofóbico para la retención de sustancias oleosas
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Filtros elaborados con cabello humano y aserrín para retener aceites y grasas de cocina antes de que lleguen al drenaje, evitando la contaminación de cuerpos de agua en Morelos.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_14.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 14</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 16 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="16"
+                                data-title="sistema reutilizador y filtrador de agua residual proveniente del lavabo"
+                                data-plantel="plantel 02 jiutepec"
+                                data-summary="sistema de filtración biológica de aguas jabonosas de lavabos para reutilizarlas en las descargas de sanitarios, reduciendo el consumo de agua potable y los costos de mantenimiento.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-sky-500/15 via-blue-400/10 to-cyan-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-droplet text-5xl text-sky-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 16
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Gestión Hídrica
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 02 Jiutepec</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Sistema reutilizador y filtrador de agua residual proveniente del lavabo
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Sistema de filtración biológica de aguas jabonosas de lavabos para reutilizarlas en las descargas de sanitarios, reduciendo el consumo de agua potable y los costos de mantenimiento.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_16.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 16</span>
+                                    </div>
+                                </div>
+                            </div>
+                                    </div>
                     </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">16. ECOBA HUELLA: HOJARASCA 360</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">El Colegio de Bachilleres del estado de Morelos, plantel 10 Santa rosa 30, del municipio de Tlaltizapán, uno de sus retos a superar es la generación d...</p>
-                        <a href="Nuevos proyectos/Proyecto_16.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </details>
-
-
-    <!-- Categoría: Salud y Bienestar -->
-    <details class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300">
-        <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
-            <div class="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 shrink-0">
-                <i class="fa-solid fa-heart-pulse text-2xl"></i>
-            </div>
-            <h3 class="text-xl md:text-2xl font-bold text-airbus-blue flex-grow">Salud y Bienestar</h3>
-            <span class="bg-red-500/20 text-red-500 text-sm font-bold px-3 py-1 rounded-full mr-2 md:mr-4 shrink-0 shadow-sm">3</span>
-            <i class="fa-solid fa-chevron-down text-gray-400 text-xl transform group-open:rotate-180 transition-transform duration-300"></i>
-        </summary>
+                </details>
         
-        <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+                <!-- Categoría: Biotecnología, Agricultura y Sustentabilidad -->
+                <details class="category-group group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300" data-category="biotecnologia" >
+                    <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50/80 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 flex items-center justify-center shrink-0 shadow-xs">
+                            <i class="fa-solid fa-seedling text-2xl"></i>
+                        </div>
+                        <div class="flex-grow min-w-0">
+                            <div class="flex items-center gap-3 flex-wrap">
+                                <h3 class="text-xl md:text-2xl font-bold text-airbus-blue leading-snug">Biotecnología, Agricultura y Sustentabilidad</h3>
+                                <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold px-2.5 py-0.5 rounded-full shrink-0 shadow-2xs">
+                                    8 proyectos
+                                </span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 line-clamp-1">Proyectos que integran ciencia, tecnología y recursos biológicos para mejorar la producción agrícola y reducir residuos.</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:text-airbus-blue group-open:rotate-180 transition-transform duration-300 shrink-0">
+                            <i class="fa-solid fa-chevron-down text-sm"></i>
+                        </div>
+                    </summary>
+                    
+                    <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2 bg-slate-50/30">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+        
+                            <!-- Tarjeta de Proyecto 06 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="06"
+                                data-title="agrobot – emsad 07 jumiltepec (frutomatic)"
+                                data-plantel="emsad 07 jumiltepec"
+                                data-summary="rediseño de la garrocha tradicional de cosecha de aguacate con sistema de corte intercambiable, para reducir el tiempo de mantenimiento y el daño al fruto.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-emerald-500/15 via-green-400/10 to-teal-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-seedling text-5xl text-emerald-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 06
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Agro y Bio
+                                    </div>
+                                </div>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-red-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-red-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-heart-pulse text-6xl text-red-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Salud</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">17. SOMP Bajo Control</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Identificar a las estudiantes que posiblemente estén cursando con la enfermedad. Así como concientizar sobre los factores desencadenantes de la misma ...</p>
-                        <a href="Nuevos proyectos/Proyecto_17.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>EMSAD 07 Jumiltepec</span>
+                                    </div>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-red-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-red-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-heart-pulse text-6xl text-red-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Salud</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">18. La calidad del aire es vida.</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">En el Colegio de Bachilleres Plantel 01 Cuernavaca y sus alrededores, estudiantes, docentes y habitantes están expuestos diariamente a gases contamina...</p>
-                        <a href="Nuevos proyectos/Proyecto_18.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        AgroBot – EMSAD 07 Jumiltepec (Frutomatic)
+                                    </h4>
 
-                <div class="project-card bg-light-bg rounded-2xl overflow-hidden shadow hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1 group/card">
-                    <div class="h-40 bg-red-500/10 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:bg-red-500/20 transition-colors duration-500">
-                        <i class="fa-solid fa-heart-pulse text-6xl text-red-500 opacity-80 group-hover/card:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-airbus-blue text-xs font-bold px-2 py-1 rounded-md shadow-sm">Salud</div>
-                    </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h4 class="text-lg font-bold text-airbus-blue mb-2 leading-tight">19. PIME Plataforma de Información Médica Estudiantil</h4>
-                        <p class="text-gray-600 text-xs mb-4 flex-grow line-clamp-4">Los estudiantes, docentes y personal administrativo del plantel no cuentan con una herramienta centralizada que permita consultar de manera rápida, se...</p>
-                        <a href="Nuevos proyectos/Proyecto_19.pdf" target="_blank" class="text-emerald-accent font-semibold text-xs hover:underline flex items-center gap-1 mt-auto group-hover/card:text-airbus-blue transition-colors">Ver PDF completo <i class="fa-solid fa-file-pdf"></i></a>
-                    </div>
-                </div>
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Rediseño de la garrocha tradicional de cosecha de aguacate con sistema de corte intercambiable, para reducir el tiempo de mantenimiento y el daño al fruto.
+                                    </p>
 
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_06.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 06</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 09 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="09"
+                                data-title="bachimangos – aprovechamiento integral del mango mediante secado solar y bioplásticos"
+                                data-plantel="plantel 03 oacalco"
+                                data-summary="secador solar para deshidratar los ~1,000 kg anuales de mango criollo desperdiciados en el plantel, con bolsas biodegradables de cáscara de mango.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-emerald-500/15 via-green-400/10 to-teal-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-seedling text-5xl text-emerald-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 09
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Agro y Bio
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 03 Oacalco</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Bachimangos – Aprovechamiento Integral del Mango mediante Secado Solar y Bioplásticos
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Secador solar para deshidratar los ~1,000 kg anuales de mango criollo desperdiciados en el plantel, con bolsas biodegradables de cáscara de mango.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_09.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 09</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 13 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="13"
+                                data-title="hidroponía"
+                                data-plantel="plantel 01 cuernavaca"
+                                data-summary="sistema hidropónico con pvc y plataforma de monitoreo digital para cultivar hierbas aromáticas y hortalizas en espacios subutilizados, reduciendo el consumo de agua en un 85%.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-emerald-500/15 via-green-400/10 to-teal-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-seedling text-5xl text-emerald-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 13
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Agro y Bio
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 01 Cuernavaca</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Hidroponía
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Sistema hidropónico con PVC y plataforma de monitoreo digital para cultivar hierbas aromáticas y hortalizas en espacios subutilizados, reduciendo el consumo de agua en un 85%.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_13.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 13</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 17 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="17"
+                                data-title="bio-fabrica emsad 07 – biopolímeros de hueso de aguacate"
+                                data-plantel="emsad 07 jumiltepec"
+                                data-summary="producción de cápsulas bio-boost de bioplástico biodegradable a partir de harina de semilla de aguacate, con aplicaciones en sanidad vegetal, nutrición de suelos y corrección de salinidad.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-emerald-500/15 via-green-400/10 to-teal-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-seedling text-5xl text-emerald-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 17
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Agro y Bio
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>EMSAD 07 Jumiltepec</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        BIO-FABRICA EMSAD 07 – Biopolímeros de hueso de aguacate
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Producción de cápsulas Bio-Boost de bioplástico biodegradable a partir de harina de semilla de aguacate, con aplicaciones en sanidad vegetal, nutrición de suelos y corrección de salinidad.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_17.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 17</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 19 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="19"
+                                data-title="ecoba huella hojarasca 360"
+                                data-plantel="plantel 10 santa rosa 30 – tlaltizapán"
+                                data-summary="trituradora de hojarasca y ramas secas para acelerar en un 50% la producción de composta a partir de ~2 toneladas de residuos vegetales anuales del plantel.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-emerald-500/15 via-green-400/10 to-teal-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-seedling text-5xl text-emerald-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 19
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Agro y Bio
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 10 Santa Rosa 30 – Tlaltizapán</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        ECOBA HUELLA HOJARASCA 360
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Trituradora de hojarasca y ramas secas para acelerar en un 50% la producción de composta a partir de ~2 toneladas de residuos vegetales anuales del plantel.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_19.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 19</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 20 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="20"
+                                data-title="sistema autónomo de control de humedad para producción de hongo seta"
+                                data-plantel="plantel 05 amacuzac"
+                                data-summary="sistema de sensores y actuadores alimentado con energía solar que mantiene automáticamente la humedad óptima del cultivo de hongo seta, reduciendo la intervención manual en un 50%.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-emerald-500/15 via-green-400/10 to-teal-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-seedling text-5xl text-emerald-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 20
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Agro y Bio
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 05 Amacuzac</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Sistema autónomo de control de humedad para producción de hongo seta
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Sistema de sensores y actuadores alimentado con energía solar que mantiene automáticamente la humedad óptima del cultivo de hongo seta, reduciendo la intervención manual en un 50%.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_20.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 20</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 21 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="21"
+                                data-title="sistema hidropónico autónomo con energía solar para plantas medicinales y prevención del dengue"
+                                data-plantel="cobaem plantel 06 tlaltizapán"
+                                data-summary="cultivo hidropónico autónomo con energía solar para producir plantas con propiedades repelentes de mosquitos y desarrollar un repelente natural contra el aedes aegypti.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-emerald-500/15 via-green-400/10 to-teal-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-seedling text-5xl text-emerald-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 21
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Agro y Bio
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>COBAEM Plantel 06 Tlaltizapán</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Sistema hidropónico autónomo con energía solar para plantas medicinales y prevención del dengue
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Cultivo hidropónico autónomo con energía solar para producir plantas con propiedades repelentes de mosquitos y desarrollar un repelente natural contra el Aedes aegypti.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_21.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 21</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 22 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="22"
+                                data-title="fertilizantes a base de lombricomposta para restauración de suelos en tehuixtla"
+                                data-plantel="plantel 08 tehuixtla"
+                                data-summary="sistema de lombricompostaje para producir humus y lixiviado de lombriz como alternativa orgánica a fertilizantes químicos, restaurando suelos degradados en comunidades agrícolas de morelos.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-emerald-500/15 via-green-400/10 to-teal-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-seedling text-5xl text-emerald-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 22
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Agro y Bio
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 08 Tehuixtla</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Fertilizantes a base de lombricomposta para restauración de suelos en Tehuixtla
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Sistema de lombricompostaje para producir humus y lixiviado de lombriz como alternativa orgánica a fertilizantes químicos, restaurando suelos degradados en comunidades agrícolas de Morelos.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_22.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 22</span>
+                                    </div>
+                                </div>
+                            </div>
+                                    </div>
+                    </div>
+                </details>
+        
+                <!-- Categoría: Salud y Bienestar -->
+                <details class="category-group group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300" data-category="salud" >
+                    <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50/80 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
+                        <div class="w-12 h-12 rounded-xl bg-rose-500/10 text-rose-500 border border-rose-500/20 flex items-center justify-center shrink-0 shadow-xs">
+                            <i class="fa-solid fa-heart-pulse text-2xl"></i>
+                        </div>
+                        <div class="flex-grow min-w-0">
+                            <div class="flex items-center gap-3 flex-wrap">
+                                <h3 class="text-xl md:text-2xl font-bold text-airbus-blue leading-snug">Salud y Bienestar</h3>
+                                <span class="bg-rose-100 text-rose-800 border border-rose-200 text-xs font-bold px-2.5 py-0.5 rounded-full shrink-0 shadow-2xs">
+                                    2 proyectos
+                                </span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 line-clamp-1">Proyectos enfocados en mejorar la salud, la seguridad y el bienestar integral de la comunidad estudiantil.</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:text-airbus-blue group-open:rotate-180 transition-transform duration-300 shrink-0">
+                            <i class="fa-solid fa-chevron-down text-sm"></i>
+                        </div>
+                    </summary>
+                    
+                    <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2 bg-slate-50/30">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+        
+                            <!-- Tarjeta de Proyecto 03 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="03"
+                                data-title="somp bajo control"
+                                data-plantel="plantel 07 tepalcingo"
+                                data-summary="campaña de concientización y levantamiento de datos antropométricos para detectar y orientar a estudiantes con riesgo de síndrome de ovario micropolicístico (somp), con incidencia del 21% en mujeres mexicanas en edad reproductiva.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-rose-500/15 via-red-400/10 to-pink-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-heart-pulse text-5xl text-rose-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 03
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Salud y Comunidad
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 07 Tepalcingo</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        SOMP Bajo Control
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Campaña de concientización y levantamiento de datos antropométricos para detectar y orientar a estudiantes con riesgo de Síndrome de Ovario Micropolicístico (SOMP), con incidencia del 21% en mujeres mexicanas en edad reproductiva.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_03.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 03</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Tarjeta de Proyecto 11 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="11"
+                                data-title="pime – plataforma de información médica estudiantil"
+                                data-plantel="plantel 11 jantetelco"
+                                data-summary="sistema web (php, mysql) para registrar y consultar rápidamente información médica de estudiantes, reduciendo el tiempo de búsqueda de expedientes de 15 minutos a menos de 1 minuto ante emergencias.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-rose-500/15 via-red-400/10 to-pink-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-heart-pulse text-5xl text-rose-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 11
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Salud y Comunidad
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 11 Jantetelco</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        PIME – Plataforma de Información Médica Estudiantil
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Sistema web (PHP, MySQL) para registrar y consultar rápidamente información médica de estudiantes, reduciendo el tiempo de búsqueda de expedientes de 15 minutos a menos de 1 minuto ante emergencias.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_11.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 11</span>
+                                    </div>
+                                </div>
+                            </div>
+                                    </div>
+                    </div>
+                </details>
+        
+                <!-- Categoría: Monitoreo Ambiental y Tecnología -->
+                <details class="category-group group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300" data-category="tecnologia" >
+                    <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50/80 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 flex items-center justify-center shrink-0 shadow-xs">
+                            <i class="fa-solid fa-satellite-dish text-2xl"></i>
+                        </div>
+                        <div class="flex-grow min-w-0">
+                            <div class="flex items-center gap-3 flex-wrap">
+                                <h3 class="text-xl md:text-2xl font-bold text-airbus-blue leading-snug">Monitoreo Ambiental y Tecnología</h3>
+                                <span class="bg-indigo-100 text-indigo-800 border border-indigo-200 text-xs font-bold px-2.5 py-0.5 rounded-full shrink-0 shadow-2xs">
+                                    1 proyecto
+                                </span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 line-clamp-1">Proyectos que utilizan tecnología para detectar, medir y visualizar problemas ambientales.</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:text-airbus-blue group-open:rotate-180 transition-transform duration-300 shrink-0">
+                            <i class="fa-solid fa-chevron-down text-sm"></i>
+                        </div>
+                    </summary>
+                    
+                    <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2 bg-slate-50/30">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+        
+                            <!-- Tarjeta de Proyecto 10 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="10"
+                                data-title="la calidad del aire es vida"
+                                data-plantel="plantel 01 cuernavaca"
+                                data-summary="dron inteligente equipado con sensores de co₂, co, no₂ y ch₄ que recorre el plantel y zonas aledañas para mapear en tiempo real los puntos críticos de contaminación atmosférica.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-indigo-500/15 via-purple-400/10 to-blue-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-satellite-dish text-5xl text-indigo-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 10
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Tecnología e IoT
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 01 Cuernavaca</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        La calidad del aire es vida
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Dron inteligente equipado con sensores de CO₂, CO, NO₂ y CH₄ que recorre el plantel y zonas aledañas para mapear en tiempo real los puntos críticos de contaminación atmosférica.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_10.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 10</span>
+                                    </div>
+                                </div>
+                            </div>
+                                    </div>
+                    </div>
+                </details>
+        
+                <!-- Categoría: Educación Ambiental y Economía Circular -->
+                <details class="category-group group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden open:shadow-md transition-all duration-300" data-category="economia-circular" >
+                    <summary class="flex items-center gap-4 p-5 md:p-6 cursor-pointer list-none hover:bg-gray-50/80 transition-colors [&::-webkit-details-marker]:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-accent">
+                        <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-500 border border-teal-500/20 flex items-center justify-center shrink-0 shadow-xs">
+                            <i class="fa-solid fa-recycle text-2xl"></i>
+                        </div>
+                        <div class="flex-grow min-w-0">
+                            <div class="flex items-center gap-3 flex-wrap">
+                                <h3 class="text-xl md:text-2xl font-bold text-airbus-blue leading-snug">Educación Ambiental y Economía Circular</h3>
+                                <span class="bg-teal-100 text-teal-800 border border-teal-200 text-xs font-bold px-2.5 py-0.5 rounded-full shrink-0 shadow-2xs">
+                                    1 proyecto
+                                </span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 line-clamp-1">Proyectos centrados en reutilización de materiales, reducción de residuos y cultura de sustentabilidad.</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:text-airbus-blue group-open:rotate-180 transition-transform duration-300 shrink-0">
+                            <i class="fa-solid fa-chevron-down text-sm"></i>
+                        </div>
+                    </summary>
+                    
+                    <div class="p-5 md:p-6 pt-0 border-t border-gray-100 mt-2 bg-slate-50/30">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-6">
+        
+                            <!-- Tarjeta de Proyecto 07 -->
+                            <div class="project-card bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1.5 group/card"
+                                data-project-num="07"
+                                data-title="crea tu libreta, taller sustentable – ciencia y arte"
+                                data-plantel="plantel 08 tehuixtla (econova)"
+                                data-summary="taller de tres sesiones para reutilizar hojas sobrantes de cuadernos en libretas artesanales con portadas de cianotipia botánica, reduciendo ~30–50% el gasto en útiles y recuperando ~90 kg de papel por semestre.">
+                                
+                                <div class="h-36 bg-gradient-to-br from-teal-500/15 via-emerald-400/10 to-cyan-500/5 overflow-hidden relative shrink-0 flex items-center justify-center group-hover/card:brightness-105 transition-all duration-500 border-b border-gray-100/60">
+                                    <i class="fa-solid fa-recycle text-5xl text-teal-500 opacity-75 group-hover/card:scale-115 transition-transform duration-500"></i>
+                                    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-airbus-blue text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow-xs border border-gray-100">
+                                        PROYECTO 07
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-600 text-[10px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
+                                        Economía Circular
+                                    </div>
+                                </div>
+
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold mb-2 line-clamp-1">
+                                        <i class="fa-solid fa-location-dot text-[11px]"></i>
+                                        <span>Plantel 08 Tehuixtla (EcoNova)</span>
+                                    </div>
+
+                                    <h4 class="text-base font-bold text-airbus-blue mb-2.5 leading-snug group-hover/card:text-emerald-600 transition-colors">
+                                        Crea tu libreta, taller sustentable – ciencia y arte
+                                    </h4>
+
+                                    <p class="text-gray-600 text-xs leading-relaxed mb-5 flex-grow line-clamp-4">
+                                        Taller de tres sesiones para reutilizar hojas sobrantes de cuadernos en libretas artesanales con portadas de cianotipia botánica, reduciendo ~30–50% el gasto en útiles y recuperando ~90 kg de papel por semestre.
+                                    </p>
+
+                                    <div class="pt-3 border-t border-gray-100 mt-auto flex items-center justify-between">
+                                        <a href="proyectos_pdf/Proyecto_07.pdf" target="_blank" 
+                                            class="inline-flex items-center gap-2 text-xs font-bold text-emerald-accent hover:text-airbus-blue transition-colors group/btn py-1 px-1">
+                                            <i class="fa-solid fa-file-pdf text-red-500 text-sm group-hover/btn:scale-110 transition-transform"></i>
+                                            <span>Ficha Técnica PDF</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70"></i>
+                                        </a>
+                                        <span class="text-[10px] text-gray-400 font-mono">ID 07</span>
+                                    </div>
+                                </div>
+                            </div>
+                                    </div>
+                    </div>
+                </details>
+        
             </div>
-        </div>
-    </details>
 
-</div>
+            <div id="no-projects-found" class="hidden text-center py-16 bg-white rounded-2xl border border-gray-100 shadow-sm mt-6">
+                <div class="w-16 h-16 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <h4 class="text-lg font-bold text-gray-700 mb-1">No se encontraron proyectos</h4>
+                <p class="text-sm text-gray-500">Prueba con otra palabra clave o limpia el buscador para ver todos los 23 proyectos.</p>
+                <button type="button" id="reset-filter-btn" class="mt-4 px-4 py-2 bg-emerald-accent text-white rounded-xl text-xs font-bold hover:bg-emerald-600 transition-colors">
+                    Ver todos los proyectos
+                </button>
+            </div>
+
+            <script>
+            (function() {
+                const searchInput = document.getElementById('project-search-input');
+                const filterBtns = document.querySelectorAll('.category-filter-btn');
+                const categoryGroups = document.querySelectorAll('.category-group');
+                const projectCards = document.querySelectorAll('.project-card');
+                const noProjectsMsg = document.getElementById('no-projects-found');
+                const resetFilterBtn = document.getElementById('reset-filter-btn');
+
+                let currentCategory = 'all';
+
+                function applyFilters() {
+                    const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+                    let totalVisible = 0;
+
+                    categoryGroups.forEach(group => {
+                        const groupCategory = group.getAttribute('data-category');
+                        const isCategoryMatch = (currentCategory === 'all' || currentCategory === groupCategory);
+
+                        if (!isCategoryMatch) {
+                            group.classList.add('hidden');
+                            return;
+                        }
+
+                        let visibleInGroup = 0;
+                        const cardsInGroup = group.querySelectorAll('.project-card');
+
+                        cardsInGroup.forEach(card => {
+                            const title = card.getAttribute('data-title') || '';
+                            const plantel = card.getAttribute('data-plantel') || '';
+                            const summary = card.getAttribute('data-summary') || '';
+                            const num = card.getAttribute('data-project-num') || '';
+
+                            const matchesQuery = !query || 
+                                title.includes(query) || 
+                                plantel.includes(query) || 
+                                summary.includes(query) || 
+                                num.includes(query);
+
+                            if (matchesQuery) {
+                                card.classList.remove('hidden');
+                                visibleInGroup++;
+                                totalVisible++;
+                            } else {
+                                card.classList.add('hidden');
+                            }
+                        });
+
+                        if (visibleInGroup > 0) {
+                            group.classList.remove('hidden');
+                            if (query.length > 0) {
+                                group.setAttribute('open', '');
+                            }
+                        } else {
+                            group.classList.add('hidden');
+                        }
+                    });
+
+                    if (noProjectsMsg) {
+                        if (totalVisible === 0) {
+                            noProjectsMsg.classList.remove('hidden');
+                        } else {
+                            noProjectsMsg.classList.add('hidden');
+                        }
+                    }
+                }
+
+                if (searchInput) {
+                    searchInput.addEventListener('input', applyFilters);
+                }
+
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        filterBtns.forEach(b => {
+                            b.classList.remove('active', 'bg-airbus-blue', 'text-white', 'shadow-xs');
+                            b.classList.add('text-gray-600', 'bg-gray-100');
+                        });
+                        this.classList.add('active', 'bg-airbus-blue', 'text-white', 'shadow-xs');
+                        this.classList.remove('text-gray-600', 'bg-gray-100');
+
+                        currentCategory = this.getAttribute('data-filter');
+                        applyFilters();
+                    });
+                });
+
+                if (resetFilterBtn) {
+                    resetFilterBtn.addEventListener('click', function() {
+                        if (searchInput) searchInput.value = '';
+                        currentCategory = 'all';
+                        filterBtns.forEach(b => {
+                            if (b.getAttribute('data-filter') === 'all') {
+                                b.classList.add('active', 'bg-airbus-blue', 'text-white', 'shadow-xs');
+                                b.classList.remove('text-gray-600', 'bg-gray-100');
+                            } else {
+                                b.classList.remove('active', 'bg-airbus-blue', 'text-white', 'shadow-xs');
+                                b.classList.add('text-gray-600', 'bg-gray-100');
+                            }
+                        });
+                        applyFilters();
+                    });
+                }
+            })();
+            </script>
 <!-- END SECCIONES DE PROYECTOS CATEGORIZADAS -->
 
             <!-- Interactive Map -->
