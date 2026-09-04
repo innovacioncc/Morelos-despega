@@ -147,7 +147,7 @@ def build_section_html(categories):
     html_parts.append('<!-- SECCIONES DE PROYECTOS CATEGORIZADAS -->\n')
     
     # Barra superior de utilidades: Buscador, filtros rápidos y botón de Catálogo Completo
-    html_parts.append('''
+    html_parts.append(f'''
             <!-- Barra de Controles y Descarga de Catálogo -->
             <div class="mb-10 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                 <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
@@ -162,7 +162,7 @@ def build_section_html(categories):
 
                     <!-- Botones de Acción / Catálogo PDF -->
                     <div class="flex items-center gap-3 w-full lg:w-auto justify-end flex-wrap">
-                        <span class="text-xs font-semibold text-gray-500 hidden sm:inline">23 Proyectos Oficiales • 6 Áreas</span>
+                        <span class="text-xs font-semibold text-gray-500 hidden sm:inline">{total_projects} Proyectos Oficiales • 6 Áreas</span>
                         <a href="Catalogo_Proyectos.pdf" target="_blank" download="Catalogo_Proyectos_Airbus_COBAEM.pdf"
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-airbus-blue text-white rounded-xl text-sm font-semibold hover:bg-opacity-90 transition-all shadow-sm hover:shadow group">
                             <i class="fa-solid fa-file-pdf text-red-400 group-hover:scale-110 transition-transform"></i>
@@ -175,7 +175,7 @@ def build_section_html(categories):
                 <div class="flex items-center gap-2 overflow-x-auto pt-4 mt-4 border-t border-gray-100 pb-1 scrollbar-none text-xs">
                     <span class="text-gray-400 font-semibold uppercase tracking-wider text-[11px] mr-1 shrink-0">Filtrar:</span>
                     <button type="button" class="category-filter-btn active px-3.5 py-1.5 rounded-full font-medium transition-all bg-airbus-blue text-white shadow-xs" data-filter="all">
-                        Todos (23)
+                        Todos ({total_projects})
                     </button>
     ''')
 
@@ -292,8 +292,7 @@ def build_section_html(categories):
                 </details>
         ''')
 
-    # Script interactivo de filtrado y búsqueda incorporado
-    html_parts.append('''
+    html_parts.append(f'''
             </div>
 
             <div id="no-projects-found" class="hidden text-center py-16 bg-white rounded-2xl border border-gray-100 shadow-sm mt-6">
@@ -301,12 +300,12 @@ def build_section_html(categories):
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
                 <h4 class="text-lg font-bold text-gray-700 mb-1">No se encontraron proyectos</h4>
-                <p class="text-sm text-gray-500">Prueba con otra palabra clave o limpia el buscador para ver todos los 23 proyectos.</p>
+                <p class="text-sm text-gray-500">Prueba con otra palabra clave o limpia el buscador para ver todos los {total_projects} proyectos.</p>
                 <button type="button" id="reset-filter-btn" class="mt-4 px-4 py-2 bg-emerald-accent text-white rounded-xl text-xs font-bold hover:bg-emerald-600 transition-colors">
                     Ver todos los proyectos
                 </button>
-            </div>
-
+            </div>''')
+    html_parts.append('''
             <script>
             (function() {
                 const searchInput = document.getElementById('project-search-input');
